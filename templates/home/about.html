@@ -1,0 +1,32 @@
+{% extends 'page.html' %}
+{% load static %}
+{% block title %}About{% endblock title %}
+{% block content %}
+<div class="jumbotron mt-3">
+  <h1 class="display-4">¡Welcome to Blogify!</h1>
+  <p class="lead">It is a website that allows you to post anything you want, where you can react or comment on the posts
+    you want, it has registration for users, login and the necessary permissions to react or comment.</p>
+  <hr class="my-4">
+  <p>Technologies that were used to develop it:</p>
+  <div class="row mt-4">
+    <div class="col-md-2">
+      <img src="{% static "images/html5.png" %}" class="w-75">
+    </div>
+    <div class="col-md-2">
+      <img src="{% static "images/javascript.png" %}" class="w-75">
+    </div>
+    <div class="col-md-2">
+      <img src="{% static "images/bootstrap.png" %}" class="w-75">
+    </div>
+    <div class="col-md-2">
+      <img src="{% static "images/python.png" %}" class="w-75">
+    </div>
+    <div class="col-md-2">
+      <img src="{% static "images/django.png" %}" class="w-75">
+    </div>
+    <div class="col-md-2">
+      <img src="{% static "images/postgresql.png" %}" class="w-75">
+    </div>
+  </div>
+</div>
+{% endblock content %}

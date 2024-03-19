@@ -1,0 +1,62 @@
+
+{% extends 'page.html' %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+<div class="row row-cols-md-3 g-4 mt-4">
+    {% csrf_token %}
+    {% for post in posts %}
+    <div class="col">
+        <div class="card h-100">
+            {{post.3.url}}
+            <img src="/media/{{post.3}}" class="img-fluid h-75" alt="{{post.1}}"
+                style="width:100%; max-height: 350px;">
+            <div class="card-body">
+                <h5 class="card-title">{{post.1}}</h5>
+                <p class="card-text">{{post.2 | truncatechars:50}}</p>
+                <small><a href="{% url 'post:detail' post.0 %}">View Post</a></small>
+            </div>
+            <div class="card-footer">
+                <div class="float-start">
+                    <small class="text-body-secondary">{{post.4}}</small>
+                </div>
+                <div class="float-end">
+                    <button class="btn btn-secondary" title="Like" onclick="reaction({{ post.0 }})" {% if not user.is_authenticated %}disabled{% endif %}><i
+                            class="fa-regular fa-thumbs-up"></i> {% if post.5 %}{{post.5}}{% endif %}</button>
+                    <button class="btn btn-secondary" title="comment"><i class="fa-regular fa-comments"></i> {% if post.6 %}{{post.6}}{% endif %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}
+
+{% block script %}
+<script>
+    async function reaction(postId) {
+        const csrf_token = document.querySelector('input[name="csrfmiddlewaretoken"]').value
+        try {
+            const response = await axios.post('{% url "post:reaction" %}', { postId }, {
+                headers: {
+                    'X-CSRFToken': csrf_token
+                }
+            })
+            if (response.status === 200) {
+                window.location.reload();
+            }
+        } catch (error) {
+            if(error.response.status === 401){
+                swal({
+                    title: "¡Unauthorized Action!",
+                    text: error.response.data.data,
+                    type: "warning",
+                    icon: 'warning',
+                    confirmButtonText: "OK"
+                })
+            }else {
+                console.log(error)
+            }
+        }
+    }
+</script>
+{% endblock script %}

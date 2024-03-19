@@ -1,0 +1,56 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Register{% endblock title %}
+{% block content %}
+
+<div class="d-flex justify-content-center align-items-center m-5" style="min-height: 80vh;">
+  <div class="card w-100">
+    <div class="row g-0">
+      <div class="col-md-6">
+        <img src="{% static 'images/sign_up.png' %}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-6">
+        <div class="card-body w-100">
+          <div class="mx-auto mt-5">
+            <a class="btn btn-secondary" href="{% url 'home' %}"><i class="fa-solid fa-arrow-left"></i> Back Home</a>
+            <h3 class="card-title text-center">Form Register</h3>
+            {% if form.errors %}
+              {% for field in form %}
+                {% for error in field.errors %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <strong>Alert!</strong> {{error}}.
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+              {% endfor %}
+            {% elif messages %}
+              {% for message in messages %}
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success!</strong> {{message}}.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% endfor %}
+            {% endif %}
+            <p class="card-text mt-5">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {% for field in form %}
+              <div class="mb-3">
+                <label class="form-label">{{field.label}}</label>
+                {{field}}
+              </div>
+              {% endfor %}
+              <div class="d-grid mb-3">
+                <button class="btn btn-primary">Registrarse</button>
+              </div>
+              <p>Do you have an account? <a href="{% url 'login' %}">Sign in</a></p>
+            </form>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %}Sign in{% endblock title %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center m-5" style="min-height: 80vh;">
+  <div class="card w-75">
+    <div class="row g-0">
+      <div class="col-md-6">
+        <img src="{% static 'images/login_banner.png' %}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-6">
+        <div class="card-body">
+          <div class="mx-auto mt-5">
+            <a class="btn btn-secondary" href="{% url 'home' %}"><i class="fa-solid fa-arrow-left"></i> Back Home</a>
+            <h3 class="card-title text-center">Login</h3>
+            {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>Error!</strong> {{message}}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% endfor %}
+            {% endif %}
+            <p class="card-text mt-5">
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {% for field in form %}
+              <div class="mb-3">
+                <label class="form-label">{{field.label}}</label>
+                {{field}}
+              </div>
+              {% endfor %}
+              <div class="d-grid mb-3">
+                <button class="btn btn-primary">Sign in</button>
+              </div>
+              <p>You don't have an account? <a href="{% url 'register' %}">Sign up</a></p>
+            </form>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
