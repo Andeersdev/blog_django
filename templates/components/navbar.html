@@ -34,16 +34,10 @@
                 Welcome! {{user}}
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><a class="dropdown-item" href="#">Reactions</a></li>
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                <li><a class="dropdown-item" href="{% url 'logout' %}">Logout</a></li>
               </ul>
             </li>
           </ul>
-          <a class="btn btn-primary" href="{% url 'logout' %}">Logut</a>
         {% endif %}
         
       </div>
